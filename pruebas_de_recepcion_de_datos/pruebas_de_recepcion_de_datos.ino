@@ -1,8 +1,10 @@
 String setFecha = "###2307201920102##*";
 String horasPico = "!!#080911141720!!*";
 String minutospico = "***000030300030///";
+String DiasPico = "--*1234567//*";
 int TablaHorasPico[6];
 int Tablaminutospico[6];
+int TablaDiasPico[7];
 void setup() {
   Serial.begin(9600);
   
@@ -24,11 +26,12 @@ void loop() {
   while(Serial.available()>0){
     dato = Serial.readString();
     Serial.println(dato);
-    delay(100);
+    delay(200);
     extraerhorapico(dato);
     extraerminutospico(dato);
     extraerFecha(dato);
-
+    extraerDiaspico(dato);
+    
     Serial.println("HORAS: ");
     for(int i=0;i< 6; i++){
       Serial.println(TablaHorasPico[i]);
@@ -39,6 +42,11 @@ void loop() {
       Serial.println(Tablaminutospico[i]);
     }
 
+    Serial.println("dias semana: ");
+    for(int i=0;i< 7; i++){
+      Serial.println(TablaDiasPico[i]);
+    }
+
     dato = "";
     Serial.flush();
   }
@@ -47,6 +55,7 @@ void loop() {
 }
 
 void extraerhorapico(String horas){
+  Serial.print("recibo: "); Serial.println(horas); 
   int finalCadena = horas.length();
   finalCadena -= 3;
 
@@ -72,6 +81,7 @@ void extraerhorapico(String horas){
 }
 
 void extraerminutospico(String minutos){
+  Serial.print("recibo: "); Serial.println(minutos); 
   int finalCadena = minutos.length();
   finalCadena -= 3;
 
@@ -96,6 +106,7 @@ void extraerminutospico(String minutos){
   }
 }
 String extraerFecha(String fecha){
+  Serial.print("recibo: "); Serial.println(fecha); 
   int finalCadena = fecha.length();
   finalCadena -= 3;
 
@@ -105,5 +116,32 @@ String extraerFecha(String fecha){
     Serial.print("Hora establecida en: ");
     Serial.println(setFecha.substring(3,finalCadena));
     return setFecha.substring(3,finalCadena);
+  }
+}
+void extraerDiaspico(String dias){
+  Serial.print("recibo: "); Serial.println(dias); 
+  int finalCadena = dias.length();
+  finalCadena -= 3;
+
+  //Serial.println(finalCadena);
+  if(dias.startsWith("--*") && dias.endsWith("//*")){
+    
+     String dias1 = dias.substring(3,finalCadena);
+     String dias2 = dias1.substring(0,1);
+     String dias3 = dias1.substring(1,2);
+     String dias4 = dias1.substring(2,3);
+     String dias5 = dias1.substring(3,4);
+     String dias6 = dias1.substring(4,5);
+     String dias7 = dias1.substring(5,6);
+     String dias8 = dias1.substring(6,7);
+
+
+     TablaDiasPico[0]=dias2.toInt();
+     TablaDiasPico[1]=dias3.toInt();
+     TablaDiasPico[2]=dias4.toInt();
+     TablaDiasPico[3]=dias5.toInt();
+     TablaDiasPico[4]=dias6.toInt();
+     TablaDiasPico[5]=dias7.toInt();
+     TablaDiasPico[6]=dias8.toInt();
   }
 }
