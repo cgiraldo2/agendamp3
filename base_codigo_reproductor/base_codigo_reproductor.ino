@@ -12,7 +12,7 @@ int pulsador=9;
 int contador=1;
 int horasPico[6]={6, 9, 11, 14, 17, 21};
 int minutosPico[6]={00, 59, 30, 30, 00, 30};
-int diaspico[7]={4, 1, 5, 2, 3, 'n', 'n'};
+int diaspico[7]={4, 1, 5, 2, 3, 6, 'n'};
 
 void setup()
 {
@@ -99,7 +99,7 @@ void Reproducir(){
 
 void HoraPico(){
   
-   if (t.dow == diaspico[0] || t.dow == diaspico[1] || t.dow == diaspico[2] ){
+   if (t.dow == diaspico[0] || t.dow == diaspico[1] || t.dow == diaspico[2] || t.dow == diaspico[3] || t.dow == diaspico[4] || t.dow == diaspico[5] || t.dow == diaspico[6] ){
        
       if ((t.hour >= horasPico[0]) and (t.min >= minutosPico[0]) and (t.hour < horasPico[1]) and (t.min <= minutosPico[1])){ 
         Serial.println("Hora pico y placa 1"); // pico 6:00  a 9:00 
